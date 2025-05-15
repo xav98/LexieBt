@@ -28,7 +28,6 @@ int rB = 53;                                                       // Porta para
 AF_DCMotor mE(1);                                                  // Motor DC de Movimento Lado Esquerdo                //
 AF_DCMotor mD(2);                                                  // Motor DC de Movimento Lado Direito                 //
 AF_DCMotor mP(3);                                                  // Motor DC Pescoço                                   //
-AF_DCMotor mL(4);                                                  // Controle de Intensidade da Luz                     //
 SoftwareSerial bluetooth(14, 15);                                  // Pinos TX & RX p/ Comunicação Bluetooth             //
 /* __________________________________________________ FIM BIBLIOTECAS __________________________________________________ */
 
@@ -113,45 +112,58 @@ void control() {                                                   // | Função
 /* ---------------------------------- Função p/ Definição de Velocidade dos Motores ---------------------------------- | */
 void fast() {                                                      // | Função Void P/ Velocidade dos Motores          | //
   if (x == '0') {                                                  // | Barra no Valor 0 -> Define Velocidade em 50    | //
-    v = 50;                                                        // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '1') {                                           // | Barra no Valor 1 -> Define Velocidade em 70    | //
-    v = 70;                                                        // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '2') {                                           // | Barra no Valor 2 -> Define Velocidade em 90    | //
-    v = 90;                                                        // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '3') {                                           // | Barra no Valor 3 -> Define Velocidade em 110   | //
-    v = 110;                                                       // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '4') {                                           // | Barra no Valor 4 -> Define Velocidade em 130   | //
-    v = 130;                                                       // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '5') {                                           // | Barra no Valor 5 -> Define Velocidade em 150   | //
     v = 150;                                                       // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '6') {                                           // | Barra no Valor 6 -> Define Velocidade em 170   | //
+  } else if (x == '1') {                                           // | Barra no Valor 1 -> Define Velocidade em 70    | //
+    v = 160;                                                       // | Definição da Força do Motor na Ponte H         | //
+  } else if (x == '2') {                                           // | Barra no Valor 2 -> Define Velocidade em 90    | //
     v = 170;                                                       // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '7') {                                           // | Barra no Valor 7 -> Define Velocidade em 190   | //
+  } else if (x == '3') {                                           // | Barra no Valor 3 -> Define Velocidade em 110   | //
+    v = 180;                                                       // | Definição da Força do Motor na Ponte H         | //
+  } else if (x == '4') {                                           // | Barra no Valor 4 -> Define Velocidade em 130   | //
     v = 190;                                                       // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '8') {                                           // | Barra no Valor 8 -> Define Velocidade em 210   | //
+  } else if (x == '5') {                                           // | Barra no Valor 5 -> Define Velocidade em 150   | //
+    v = 200;                                                       // | Definição da Força do Motor na Ponte H         | //
+  } else if (x == '6') {                                           // | Barra no Valor 6 -> Define Velocidade em 170   | //
     v = 210;                                                       // | Definição da Força do Motor na Ponte H         | //
-  } else if (x == '9') {                                           // | Barra no Valor 9 -> Define Velocidade em 230   | //
+  } else if (x == '7') {                                           // | Barra no Valor 7 -> Define Velocidade em 190   | //
+    v = 220;                                                       // | Definição da Força do Motor na Ponte H         | //
+  } else if (x == '8') {                                           // | Barra no Valor 8 -> Define Velocidade em 210   | //
     v = 230;                                                       // | Definição da Força do Motor na Ponte H         | //
+  } else if (x == '9') {                                           // | Barra no Valor 9 -> Define Velocidade em 230   | //
+    v = 240;                                                       // | Definição da Força do Motor na Ponte H         | //
   } else if (x == 'q') {                                           // | Barra no Valor 10 -> Define Velocidade em 255  | //
-    v = 255;                                                       // | Definição da Força do Motor na Ponte H         | //
+    v = 250;                                                       // | Definição da Força do Motor na Ponte H         | //
   }
 }/* -------------------------------------------------- FIM void Fast. -------------------------------------------------- */
 
 // ------------------------------------------- Funções p/ Movimento do Robô. ------------------------------------------- ||
-void gogo() {                                                          //| Motores Movendo o Robô P/ Frente              ||
-  mP.run(FORWARD);                                                     //| Motor Esquerdo, Movimento P/ Frente           ||
-  mP.setSpeed(100);                                                    //| Definição do mE na Velocidade Atribuída a "v" ||
-  delay(500);                                                          //| Delay/espera para movimento do pescoço        ||
-  mP.run(BACKWARD);                                                    //| Motor Direito, Movimento P/ Frente            ||
-  mP.setSpeed(100);                                                    //| Definição do mD na Velocidade Atribuída a "v" ||
+void gogo() {                                                          //| Motores Movendo o Pescoço do Robô             ||
+  mP.run(FORWARD);                                                     //| Motor Movimento P/ Esquerda                   ||
+  mP.setSpeed(80);                                                     //| Definição do mP na Velocidade 100             ||
   delay(1000);                                                         //| Delay/espera para movimento do pescoço        ||
-  mP.run(FORWARD);                                                     //| Motor Esquerdo, Movimento P/ Frente           ||
-  mP.setSpeed(100);                                                    //| Definição do mE na Velocidade Atribuída a "v" ||
-  delay(500);                                                          //| Delay/espera para movimento do pescoço        ||
+
+  mP.run(RELEASE);                                                     //| Motor do Pescoço Para!                        ||
+  mP.setSpeed(0);                                                      //| Definição do mP na Velocidade 0               ||
+  delay(300);                                                          //| Delay/espera para movimento do pescoço        ||
+
+  mP.run(BACKWARD);                                                    //| Motor Movimento P/ Direita                    ||
+  mP.setSpeed(80);                                                     //| Definição do mP na Velocidade 100             ||
+  delay(2000);                                                         //| Delay/espera para movimento do pescoço        ||
+
+  mP.run(RELEASE);                                                     //| Motor do Pescoço Para!                        ||
+  mP.setSpeed(0);                                                      //| Definição do mP na Velocidade 0               ||
+  delay(300);                                                          //| Delay/espera para movimento do pescoço        ||
+
+  mP.run(FORWARD);                                                     //| Motor Movimento P/ Esquerda                   ||
+  mP.setSpeed(80);                                                     //| Definição do mP na Velocidade 100             ||
+  delay(1000);                                                         //| Delay/espera para movimento do pescoço        ||
+
+  mP.run(RELEASE);                                                     //| Motor do Pescoço Para!                        ||
+  mP.setSpeed(0);                                                      //| Definição do mP na Velocidade 0               ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
 void seguir() {                                                        //| Motores Movendo o Robô P/ Frente              ||
   mE.run(FORWARD);                                                     //| Motor Esquerdo, Movimento P/ Frente           ||
-  mE.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
+  mE.setSpeed(v-15);                                                   //| Definição do mE na Velocidade Atribuída a "v" ||
   mD.run(FORWARD);                                                     //| Motor Direito, Movimento P/ Frente            ||
   mD.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
@@ -159,43 +171,43 @@ void recuar() {                                                        //| Motor
   mE.run(BACKWARD);                                                    //| Motor Esquerdo, Movimento P/ Trás             ||
   mE.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
   mD.run(BACKWARD);                                                    //| Motor Direito, Movimento P/ Trás              ||
-  mD.setSpeed(v - 15);                                                 //| Definição do mD na Velocidade Atribuída a "v" ||
-} // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
-void left() {                                                          //| Motores Movendo o Robô P/ Esquerda no Eixo    ||
-  mE.run(FORWARD);                                                     //| Motor Esquerdo, Movimento P/ Frente           ||
-  mE.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
-  mD.run(BACKWARD);                                                    //| Definição do mD na Velocidade Atribuída a "v" ||
   mD.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
-void right() {                                                         //| Motores Movendo o Robô P/ Direita no Eixo     ||
+void left() {                                                          //| Motores Movendo o Robô P/ Esquerda no Eixo    ||
   mE.run(BACKWARD);                                                    //| Motor Esquerdo, Movimento P/ Trás             ||
   mE.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
   mD.run(FORWARD);                                                     //| Motor Direito, Movimento P/ Frente            ||
+  mD.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
+} // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
+void right() {                                                         //| Motores Movendo o Robô P/ Direita no Eixo     ||
+  mE.run(FORWARD);                                                     //| Motor Esquerdo, Movimento P/ Frente           ||
+  mE.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
+  mD.run(BACKWARD);                                                    //| Motor Direito, Movimento P/ Trás              ||
   mD.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
 void tLeft() {                                                         //| Motores Movendo o Robô P/ Esquerda e Trás     ||
   mE.run(BACKWARD);                                                    //| Motor Esquerdo, Movimento P/ Trás             ||
-  mE.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
-  mD.run(BACKWARD);                                                    //| Definição do mD na Velocidade Atribuída a "v" ||
-  mD.setSpeed(v / 2);                                                  //| Definição do mD Atribuída a metade de "v" v/2 ||
+  mE.setSpeed(v/2);                                                    //| Definição do mD Atribuída a metade de "v" v/2 ||
+  mD.run(BACKWARD);                                                    //| Motor Direito, Movimento P/ Trás              ||
+  mD.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
 void tRight() {                                                        //| Motores Movendo o Robô P/ Direita e Trás      ||
   mE.run(BACKWARD);                                                    //| Motor Esquerdo, Movimento P/ Trás             ||
-  mE.setSpeed(v / 2);                                                  //| Definição do mE Atribuída a metade de "v" v/2 ||
-  mD.run(BACKWARD);                                                    //| Definição do mD na Velocidade Atribuída a "v" ||
-  mD.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
+  mE.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
+  mD.run(BACKWARD);                                                    //| Motor Direito, Movimento P/ Trás              ||
+  mD.setSpeed(v/2);                                                    //| Definição do mE Atribuída a metade de "v" v/2 ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
 void fLeft() {                                                         //| Motores Movendo o Robô P/ Esquerda e Frente   ||
   mE.run(FORWARD);                                                     //| Motor Esquerdo, Movimento P/ Frente           ||
-  mE.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
+  mE.setSpeed(v/2);                                                    //| Definição do mD Atribuída a metade de "v" v/2 ||
   mD.run(FORWARD);                                                     //| Motor Direito, Movimento P/ Frente            ||
-  mD.setSpeed(v / 2);                                                  //| Definição do mD Atribuída a metade de "v" v/2 ||
+  mD.setSpeed(v);                                                      //| Definição do mE na Velocidade Atribuída a "v" ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
 void fRight() {                                                        //| Motores Movendo o Robô P/ Direita e Frante    ||
   mE.run(FORWARD);                                                     //| Motor Esquerdo, Movimento P/ Frente           ||
-  mE.setSpeed(v / 2);                                                  //| Definição do mE Atribuída a metade de "v" v/2 ||
+  mE.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
   mD.run(FORWARD);                                                     //| Motor Direito, Movimento P/ Frente            ||
-  mD.setSpeed(v);                                                      //| Definição do mD na Velocidade Atribuída a "v" ||
+  mD.setSpeed(v/2);                                                    //| Definição do mE Atribuída a metade de "v" v/2 ||
 } // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
 void parar() {                                                         //| Motores NÃO Giram, Robô Permanece Imóvel      ||
   mE.run(RELEASE);                                                     //| Motor Esquerdo Sem Movimentos: "Liberado"     ||
